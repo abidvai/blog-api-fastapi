@@ -1,3 +1,5 @@
+from app.database import database
+from app.schemas.blog.blog import CreateBlog
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.blog_model import Blog
@@ -9,10 +11,15 @@ class BlogService:
     def __init__(self, db: AsyncSession):
         self.repository = BlogRepository(db)
 
-    async def create_blog(self, blog: Blog) -> Blog:
-        await self.repository.create_blog(blog)
-        return blog
-
+    async def create_blog(self, data: CreateBlog, user_id: int) -> Blog:
+        blog = Blog(
+            title=data.title,
+            content=data.content,
+            blog_photo=data.blog_photo,
+            user_id=user_id,
+        )
+        return await self.repository.create_blog(blog)
+    
     async def get_blog_by_id(self, blog_id: int) -> Blog | None:
         blog = await self.repository.get_blog_by_id(blog_id)
         if not blog:

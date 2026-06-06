@@ -10,6 +10,9 @@ class CreateBlog(BaseModel):
         ..., min_length=3, max_length=100, description="The title of the blog"
     )
     content: str = Field(..., min_length=10, description="The content of the blog")
+    blog_photo: str | None = Field(
+        None, max_length=255, description="The URL of the blog photo"
+    )
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -21,6 +24,9 @@ class UpdateBlog(BaseModel):
     content: str | None = Field(
         None, min_length=10, description="The content of the blog"
     )
+    blog_photo: str | None = Field(
+        None, max_length=255, description="The URL of the blog photo"
+    )
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -29,6 +35,7 @@ class BlogBaseResponse(BaseModel):
     id: int
     title: str
     content: str
+    blog_photo: str | None = None
     user: UserMiniResponse
 
     model_config = ConfigDict(from_attributes=True)

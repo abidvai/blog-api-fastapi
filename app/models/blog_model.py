@@ -18,6 +18,7 @@ class Blog(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(200), index=True, nullable=False)
     content = Column(Text, nullable=False)
+    blog_photo = Column(String(255), nullable=True, default="")
     created_at = Column(DateTime, nullable=False, server_default=func.now(), index=True)
     updated_at = Column(
         DateTime, nullable=False, onupdate=func.now(), server_default=func.now()

@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     debug: bool = False
     database_url: str
 
+
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int = 60
@@ -17,6 +18,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "ignore"
 
 
 settings = Settings()
