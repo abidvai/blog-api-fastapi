@@ -36,3 +36,25 @@ class Blog(Base):
     view_posts = relationship(
         "ViewPost", back_populates="post", cascade="all, delete-orphan"
     )
+
+    @property
+    def likes_count(self) -> int:
+        try:
+            return len(self.likes)
+        except Exception:
+            return 0
+
+    @property
+    def comments_count(self) -> int:
+        try:
+            return len(self.comments)
+        except Exception:
+            return 0
+
+    @property
+    def views_count(self) -> int:
+        try:
+            return len(self.view_posts)
+        except Exception:
+            return 0
+
