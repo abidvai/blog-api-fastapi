@@ -16,3 +16,9 @@ class LikeUserResponse(BaseModel):
     user: UserMiniResponse
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class ToggleLikeResponse(BaseModel):
+    liked: bool
+
+    model_config = ConfigDict(from_attributes=True)
