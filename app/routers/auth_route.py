@@ -1,3 +1,4 @@
+from app.schemas.auth.refresh_token_schemas import RefreshToken
 from app.schemas.auth.user_create_schemas import UserCreate
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,5 +23,19 @@ async def register(data: UserCreate, db: AsyncSession = Depends(get_db)):
     service = AuthService(db)
     token_data = await service.register(data)
     return APIResponse(success=True, message="Register successful", data=token_data)
+
+@auth_route.post("/refresh", response_model=APIResponse[TokenResponse])
+async def refresh(data: RefreshToken, db: AsyncSession = Depends(get_db)):
+    service = AuthService(db)
+    token_data = await service.refresh(data)
+    return APIResponse(success=True, message="Token refreshed successfully", data=token_data)
+
+@auth_route.post("/logout", response_model=APIResponse[None])
+async def logout(token: str, db: AsyncSession = Depends(get_db)):
+    service = AuthService(db)
+    await service.logout(token)
+    return APIResponse(success=True, message="Logout successful", data=None)
+
+    
 
 
