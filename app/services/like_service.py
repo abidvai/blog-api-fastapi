@@ -14,7 +14,7 @@ class LikeService:
             await self.like_repository.delete_like(existing.id)
             return {"liked": False}
         else:
-            like = Like(user_id=user_id, blog_id=blog_id)
+            like = Like(user_id=user_id, post_id=blog_id)
             await self.like_repository.create_like(like)
             return {"liked": True}
 
